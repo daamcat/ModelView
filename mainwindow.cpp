@@ -63,6 +63,9 @@ void MainWindow::setCostumModel()
 
     MyItemModel *itemModel = new MyItemModel();
     ui->treeView->setModel(itemModel);
+    // The columns to be wide enough to display the whole items: (Doing this with push button doesn't change the view)
+    ui->treeView->header()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
+
 
     connect(itemModel,&MyItemModel::headerDataChanged,this,&MainWindow::slotHeaderDataChanged);
     connect(itemModel,&MyItemModel::itemChanged,this,&MainWindow::slotItemChanged);
@@ -90,11 +93,7 @@ void MainWindow::slotPushButtonDebugClicked()
     int columnNumber = 2;
     QString str = m_model->headerData(columnNumber,Qt::Orientation::Horizontal).toString();
 
-    // using m_model->setHeaderData() to modify the model in here is not possible and will return false!
-
-
     ui->labelDebug->setText(str);
-
 }
 
 void MainWindow::slotResizeColumnToContents(const QModelIndex &index)
