@@ -6,8 +6,14 @@
 
 MyItemModel::MyItemModel()
 {
+    setModelToTreeView();
 
-    QList<QStandardItem*> items;
+
+}
+
+void MyItemModel::setModelToTreeView()
+{
+    m_items.clear();
 
     //#########################
     // Item 1
@@ -54,13 +60,12 @@ MyItemModel::MyItemModel()
 
     standardItemChild->setChild(0,1,standardItemChild2);
 
-
     //#########################
     // Item 2
     //#########################
     QStandardItem *standardItem2 = new QStandardItem;
     QString valueStr = "Harchi";
-    standardItem2->setData(itemValue);
+    standardItem2->setData(valueStr);
     sansFont = QFont("Helvetica [Cronyx]", 27);
     sansFont.setBold(true);
     standardItem2->setFont(sansFont);
@@ -85,17 +90,93 @@ MyItemModel::MyItemModel()
     standardItem2->setChild(1,1,standardItemChild3);
 
 
-    items.push_back(standardItem1);
-    items.push_back(standardItem2);
+    m_items.push_back(standardItem1);
+    m_items.push_back(standardItem2);
 
-    this->appendColumn(items);
+    this->appendColumn(m_items);
 
     this->insertColumn(1);
 
     this->setHeaderData(0,Qt::Orientation::Horizontal,"Col 1");
     this->setHeaderData(1,Qt::Orientation::Horizontal,"Col 2");
+}
+
+void MyItemModel::setModelToTableView()
+{
+    m_items.clear();
+
+    //#########################
+    // Item 1
+    //#########################
+    QStandardItem *standardItem1 = new QStandardItem();
+    double itemValue = 5.67;
+    standardItem1->setData(itemValue);
+    QFont sansFont("Helvetica [Cronyx]", 22);
+    standardItem1->setFont(sansFont);
+    standardItem1->setText("This is a double");
+    QBrush brush;
+    brush.setStyle(Qt::BrushStyle::CrossPattern);
+    brush.setColor(Qt::yellow);
+    standardItem1->setForeground(brush);
+    standardItem1->setBackground(QBrush(Qt::GlobalColor::darkRed));
+
+    //#########################
+    // Item 2
+    //#########################
+    QStandardItem *standardItem2 = new QStandardItem;
+    QString valueStr = "Harchi";
+    standardItem2->setData(valueStr);
+    sansFont = QFont("Helvetica [Cronyx]", 27);
+    sansFont.setBold(true);
+    standardItem2->setFont(sansFont);
+    standardItem2->setText("This is a string");
+    brush.setStyle(Qt::BrushStyle::VerPattern);
+    brush.setColor(Qt::green);
+    standardItem2->setForeground(brush);
+    standardItem2->setBackground(QBrush(Qt::GlobalColor::darkCyan));
 
 
+    //#########################
+    // Adding to the model
+    //#########################
+    m_items.push_back(standardItem1);
+    m_items.push_back(standardItem2);
 
+    this->appendColumn(m_items);
+}
+
+int MyItemModel::rowCount(const QModelIndex &parent) const
+{
+    return m_items.size();
+}
+
+QVariant MyItemModel::data(const QModelIndex &index, int role) const
+{
+    // With reimplementation of data(), the view will ignore all the formatting of the cells.
+    if (index.isValid() == false || index.row() >= m_items.size())
+    {
+        return QVariant();
+    }
+
+    if (role == Qt::ItemDataRole::DisplayRole)
+    {
+        if (index.column() == 0)
+        {
+            return m_items.at(index.row())->data(Qt::ItemDataRole::DisplayRole);
+        }
+        else
+        {
+            return m_items.at(index.row())->data();
+        }
+    }
+    else
+    {
+        return QVariant();
+    }
+}
+
+
+void MyItemModel::changeItem()
+{
 
 }

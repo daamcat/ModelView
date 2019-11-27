@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include "myitemmodel.h"
+
+
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +27,7 @@ private:
     Ui::MainWindow *ui;
 
     QFileSystemModel *m_model;
+    MyItemModel *m_itemModel;
 
     void setFileInfoModel();
     void setCostumModel();

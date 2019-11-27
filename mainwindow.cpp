@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "myitemmodel.h"
 #include "ui_mainwindow.h"
 #include "mytreeview.h"
 
@@ -61,14 +60,15 @@ void MainWindow::setCostumModel()
 {
     m_model = new QFileSystemModel();
 
-    MyItemModel *itemModel = new MyItemModel();
-    ui->treeView->setModel(itemModel);
+    m_itemModel = new MyItemModel();
+    ui->treeView->setModel(m_itemModel);
+    ui->tableView->setModel(m_itemModel);
     // The columns to be wide enough to display the whole items: (Doing this with push button doesn't change the view)
     ui->treeView->header()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
 
 
-    connect(itemModel,&MyItemModel::headerDataChanged,this,&MainWindow::slotHeaderDataChanged);
-    connect(itemModel,&MyItemModel::itemChanged,this,&MainWindow::slotItemChanged);
+    connect(m_itemModel,&MyItemModel::headerDataChanged,this,&MainWindow::slotHeaderDataChanged);
+    connect(m_itemModel,&MyItemModel::itemChanged,this,&MainWindow::slotItemChanged);
 
 }
 
@@ -94,6 +94,9 @@ void MainWindow::slotPushButtonDebugClicked()
     QString str = m_model->headerData(columnNumber,Qt::Orientation::Horizontal).toString();
 
     ui->labelDebug->setText(str);
+
+    m_itemModel->changeItem();
+
 }
 
 void MainWindow::slotResizeColumnToContents(const QModelIndex &index)
@@ -101,4 +104,5 @@ void MainWindow::slotResizeColumnToContents(const QModelIndex &index)
     int columnNumber = index.column();
     ui->labelDebug->setText(index.data().toString());
     ui->treeView->resizeColumnToContents(columnNumber);
+
 }
