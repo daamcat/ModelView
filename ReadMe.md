@@ -3,6 +3,9 @@
 ## 06.12.2019
 My reimplementation of the function `QAbstractItemModel::data()` looks like this:
 
+![alt text](https://github.com/daamcat/ModelView/blob/master/images/table_simple_data_no_delegate.PNG)
+
+
 ```cpp
 QVariant MyItemModel::data(const QModelIndex &index, int role) const
 {
