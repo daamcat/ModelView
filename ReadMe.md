@@ -3,7 +3,7 @@
 ## 06.12.2019
 My reimplementation of the function `QAbstractItemModel::data()` looks like this:
 
-```c_cpp
+```ruby
 QVariant MyItemModel::data(const QModelIndex &index, int role) const
 {
     // With reimplementation of data(), the view will ignore all the formatting of the cells.
