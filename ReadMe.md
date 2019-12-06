@@ -67,6 +67,7 @@ QVariant MyItemModel::data(const QModelIndex &index, int role) const
 ```
 
 We see how the background color of the cells in view changes into red:
+
 ![alt text](https://github.com/daamcat/ModelView/blob/master/images/table_BackgroundColorRole_added_data_no_delegate.PNG)
 
  
