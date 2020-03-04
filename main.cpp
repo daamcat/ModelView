@@ -1,11 +1,20 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+#include "simple_tree_model.cpp"
+
+
+
+
+
+
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    //MainWindow w;
 
-    return a.exec();
+    int exec = simple_tree_model(argc,argv);
+
+
+    return exec;
 }
+

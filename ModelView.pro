@@ -17,6 +17,8 @@ TEMPLATE = app
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += SOURCE_DIR=\\\"$$PWD\\\"
+
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -30,13 +32,18 @@ SOURCES += \
         mainwindow.cpp \
     mylabel.cpp \
     myitemmodel.cpp \
-    mytreeview.cpp
+    mytreeview.cpp \
+    treeitem.cpp \
+    treemodel.cpp \
+    simple_tree_model.cpp
 
 HEADERS += \
         mainwindow.h \
     mylabel.h \
     myitemmodel.h \
-    mytreeview.h
+    mytreeview.h \
+    treeitem.h \
+    treemodel.h
 
 FORMS += \
         mainwindow.ui
