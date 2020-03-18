@@ -10,6 +10,20 @@ Ref:
 #include<QAbstractItemModel>
 #include "treeitem.h"
 
+enum class NodeColumns
+{
+  path,
+  comment,
+  type,
+  value,
+  defaultValue,
+  minRead,
+  minWrite,
+  minFull,
+  minValue,
+  maxValue
+};
+
 
 // From which class we subclass, depends on how we want to represent the data. For lists: QAbstractListModel, for tables: QAbstractTableModel, for trees: QAbstractItemModel
 class TreeModel : public QAbstractItemModel

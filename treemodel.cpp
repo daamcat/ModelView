@@ -210,14 +210,20 @@ void setupModelData2(const QStringList &lines, TreeItem *parent)
   {
     QStringList lineSplitted = line.split(';');
     if (lineSplitted.size() != 10)
-      INCOMPLETE
     {
       continue;
     }
-    if (lineSplitted.first().begins != "root")
+    if (lineSplitted.first().startsWith("/root") == false)
     {
       continue;
     }
+
+    for (QString segment : lineSplitted)
+    {
+
+    }
+
+
 
   }
 
