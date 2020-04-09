@@ -12,7 +12,7 @@ TreeModel::TreeModel(const QString &data, QObject *parent) : // Whatever comes a
     QAbstractItemModel (parent) // Base class constructors are automatically called if they have no argument. But if we want to call base class's constructor, that must be done in initialization list.
 {
     const QVector<QVariant> root = {tr("Title"), tr("Summary")};
-    m_rootItem = new TreeItem({tr("Title"), tr("Summary")});
+    m_rootItem = new TreeItem(root);
     setupModelData(data.split('\n'), m_rootItem);
 }
 TreeModel::~TreeModel()
@@ -206,6 +206,10 @@ void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
 
 void setupModelData2(const QStringList &lines, TreeItem *parent)
 {
+  QVector<TreeItem*> nodes;
+  nodes << parent;
+
+
   for (QString line : lines)
   {
     QStringList lineSplitted = line.split(';');
@@ -218,14 +222,50 @@ void setupModelData2(const QStringList &lines, TreeItem *parent)
       continue;
     }
 
-    for (QString segment : lineSplitted)
+    QStringList nodeNames = lineSplitted.at(0).split('/');
+    if (nodeNames.size()<2)
     {
-
+      // We expect this happen to the root node.
+      continue;
     }
 
+    QString parentNodeName;
+    for (int i = 1; i<nodeNames.size(); i++)
+    {
 
+      QString parentNodeName = nodeNames.at(i-1);
+      QString nodeName = nodeNames.at(i);
 
+      TreeItem *parent = nullptr;
+      // Check if the parent node exists:
+      for (TreeItem* item : nodes)
+      {
+        if (item->data(0).toString() == parentNodeName)
+        {
+          // Parent found!
+          parent = item;
+          break;
+        }
+      }
+
+      // Check if the node itself exists:
+      TreeItem *nodeItself = nullptr;
+      for (TreeItem* item : nodes)
+      {
+        if (item->data(0).toString() == nodeName)
+        {
+          // Node found!
+          nodeItself = item;
+          break;
+        }
+      }
+
+      if (!nodeItself)
+      {
+        QVector<QVariant> columnData;
+        columnData << nodeName;
+        parent->appendChild(new TreeItem(columnData,parent));
+      }
+    }
   }
-
-
 }
