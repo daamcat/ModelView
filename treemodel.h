@@ -24,6 +24,14 @@ enum class NodeColumns
   maxValue
 };
 
+enum class NodeTypes
+{
+  NODE_TYPE_GROUP,
+  NODE_TYPE_STRING,
+  NODE_TYPE_INT64,
+  NODE_TYPE_BOOL
+};
+
 
 // From which class we subclass, depends on how we want to represent the data. For lists: QAbstractListModel, for tables: QAbstractTableModel, for trees: QAbstractItemModel
 class TreeModel : public QAbstractItemModel
@@ -59,6 +67,7 @@ public:
 private:
     void setupModelData(const QStringList &lines, TreeItem *parent);
     void setupModelData2(const QStringList &lines, TreeItem *parent);
+    QString enumToString(NodeTypes type);
 
     TreeItem *m_rootItem;
 

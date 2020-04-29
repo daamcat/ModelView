@@ -13,7 +13,7 @@ TreeModel::TreeModel(const QString &data, QObject *parent) : // Whatever comes a
 {
     const QVector<QVariant> root = {tr("Title"), tr("Summary")};
     m_rootItem = new TreeItem(root);
-    setupModelData(data.split('\n'), m_rootItem);
+    setupModelData2(data.split('\n'), m_rootItem);
 }
 TreeModel::~TreeModel()
 {
@@ -204,6 +204,23 @@ void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
     }
 }
 
+QString enumToString(NodeTypes type)
+{
+  switch (type)
+  {
+  case NodeTypes::NODE_TYPE_GROUP:
+    return "nodeTypeGroup";
+  case NodeTypes::NODE_TYPE_STRING:
+    return "NODE_TYPE_STRING";
+  case NodeTypes::NODE_TYPE_INT64:
+    return "NODE_TYPE_INT64";
+  case NodeTypes::NODE_TYPE_BOOL:
+    return "NODE_TYPE_BOOL";
+  default:
+    return "NODE_TYPE_UNKNOWN";
+  }
+}
+
 void setupModelData2(const QStringList &lines, TreeItem *parent)
 {
   QVector<TreeItem*> nodes;
@@ -230,11 +247,14 @@ void setupModelData2(const QStringList &lines, TreeItem *parent)
     }
 
     QString parentNodeName;
-    for (int i = 1; i<nodeNames.size(); i++)
+    for (int i = 0; i<nodeNames.size()-1; i++)
+      // Sweeps the node names from "root" to the end node name in a line,...
     {
+      // nodeNames.at(0) must be root.
 
-      QString parentNodeName = nodeNames.at(i-1);
-      QString nodeName = nodeNames.at(i);
+
+      QString parentNodeName = nodeNames.at(i);
+      QString nodeName = nodeNames.at(i+1);
 
       TreeItem *parent = nullptr;
       // Check if the parent node exists:

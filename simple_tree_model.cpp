@@ -14,7 +14,7 @@ int simple_tree_model(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QString fileName = QString(SOURCE_DIR)+"/testData/TreeSample.txt";
+    QString fileName = QString(SOURCE_DIR)+"/testData/TreeSample2.txt";
     QFile file(fileName);
     file.open(QIODevice::ReadOnly);
     TreeModel model(file.readAll());
