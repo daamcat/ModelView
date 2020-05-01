@@ -13,23 +13,21 @@ Ref:
 enum class NodeColumns
 {
   path,
-  comment,
   type,
+  comment,
   value,
-  defaultValue,
-  minRead,
-  minWrite,
-  minFull,
   minValue,
   maxValue
 };
 
 enum class NodeTypes
 {
-  NODE_TYPE_GROUP,
-  NODE_TYPE_STRING,
-  NODE_TYPE_INT64,
-  NODE_TYPE_BOOL
+  nodeTypeGroup,
+  nodeTypeString,
+  nodeTypeInt64,
+  nodeTypeDouble,
+  nodeTypeBool,
+  nodeTypeUnknown
 };
 
 
@@ -68,6 +66,7 @@ private:
     void setupModelData(const QStringList &lines, TreeItem *parent);
     void setupModelData2(const QStringList &lines, TreeItem *parent);
     QString enumToString(NodeTypes type);
+    NodeTypes stringToEnum(QString string);
 
     TreeItem *m_rootItem;
 
