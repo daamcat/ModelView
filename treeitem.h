@@ -46,6 +46,8 @@ public:
     int row() const;
     TreeItem* getParentItem(); // Each TreeItem has a parent TreeItem.
 
+    void setData(const QVector<QVariant> &data);
+
 private:
     QVector<TreeItem*> m_childItems;
     QVector<QVariant> m_itemData;

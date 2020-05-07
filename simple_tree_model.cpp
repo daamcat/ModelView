@@ -23,7 +23,15 @@ int simple_tree_model(int argc, char *argv[])
     TreeModel model2("Salam");
     QTreeView w;
     w.setModel(&model);
-
+    w.expandAll();
+    w.setWindowTitle("View1");
     w.show();
+
+    QTreeView w2;
+    w2.setModel(&model);
+    w2.expandAll();
+    w2.setWindowTitle("View2");
+    w2.show();
+
     return a.exec();
 }

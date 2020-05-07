@@ -17,6 +17,8 @@ TreeModel::TreeModel(const QString &data, QObject *parent) : // Whatever comes a
     QStringList dataSplitted = data.split('\n');
     setupModelData2(dataSplitted, m_rootItem);
 
+
+
     /*
     const QVector<QVariant> root = {tr("Title"), tr("Summary")};
     m_rootItem = new TreeItem(root);
@@ -56,7 +58,35 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
     }
 
     // ItemFlags is typedef of QFlags<ItemFlag>.
-    return QAbstractItemModel::flags(index);
+    return QAbstractItemModel::flags(index) | Qt::ItemFlag::ItemIsEditable;
+}
+
+bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+  if (!index.isValid() || role != Qt::ItemDataRole::EditRole)
+  {
+    return false;
+  }
+
+  // Access the item from index:
+  TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
+
+  QVector<QVariant> columnData;
+  for (int i = 0; i<item->columnCount();i++)
+  {
+    if (i == index.column())
+    {
+      columnData << value.toString();
+    }
+    else
+    {
+      columnData << item->data(i).toString();
+    }
+  }
+  item->setData(columnData);
+
+  emit dataChanged(index,index,{role});
+  return true;
 }
 
 QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -285,14 +315,14 @@ void TreeModel::setupModelData2(const QStringList &lines, TreeItem *parent)
           continue;
       }
 
-      TreeItem *parent = nullptr;
+      TreeItem *parentItem = nullptr;
       // Find parent node:
       for (TreeItem* item : nodes)
       {
         if (item->data(1).toString() == parentNodePath)
         {
           // Parent found!
-          parent = item;
+          parentItem = item;
           break;
         }
       }
@@ -321,8 +351,8 @@ void TreeModel::setupModelData2(const QStringList &lines, TreeItem *parent)
         {
             columnData << nodeName <<nodePath << QVariant();
         }
-        TreeItem *treeItem = new TreeItem(columnData,parent);
-        parent->appendChild(treeItem);
+        TreeItem *treeItem = new TreeItem(columnData,parentItem);
+        parentItem->appendChild(treeItem);
         nodes<<treeItem;
       }
     }

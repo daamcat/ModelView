@@ -81,3 +81,19 @@ We see how the background color of the cells in view changes into red:
 ![alt text](https://github.com/daamcat/ModelView/blob/master/images/table_BackgroundColorRole_added_data_no_delegate.PNG)
 
  
+ 07.05.2020
+ We have a working read-only model-view. We want to make it read-write:
+ 1. Add a reimplementation of the function `Qt::ItemFlags QAbstractItemModel::flags(const QModelIndex &index) const`. 
+ For each the model must be able to return the flags of the item. The item being selectable, editable, etc is identified through these flags (Qt::ItemFlags).
+ Write the last line of the function so that `Qt::ItemFlag::ItemIsEditable` is between the returned flags:
+```cpp
+return QAbstractItemModel::flags(index) | Qt::ItemFlag::ItemIsEditable;
+```
+
+Now run the code and double-click on an arbitrary cell. You will see that you can type in the place of the cell.
+But even if you type something new, nothing will happen. In the next step, we want the model to be updated after we change the content of a cell.
+2. Add a reimplementation of the function `bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::ItemDataRole::EditRole) override`.
+This function provides us the possibility of setting the new value in the model. The crucial point is how to access the data item using modelindex input argument.
+At the end of editing the data in model, we need to send a signal that data was changed. This is `dataChanged()` signal. To see what this signal does, create an extra tree view and set your model to it. By running the code, you can see two views for a single model. If you double click on a cell in a view and change its value, you expect all views to be updated. This will not happen without emitting the signal `dataChanged()`.
+
+

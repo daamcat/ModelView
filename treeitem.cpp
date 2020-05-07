@@ -61,3 +61,8 @@ TreeItem* TreeItem::getParentItem()
     return m_parentItem;
 }
 
+void TreeItem::setData(const QVector<QVariant> &data)
+{
+  m_itemData = data;
+}
+

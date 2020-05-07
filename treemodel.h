@@ -45,6 +45,13 @@ public:
     // Keyword "override" means this function belongs to the parent class and has been overwritten.
     // Keyword "const" means the function is not allowed to change the object.
 
+    // If we want the model to be read-and-write, we need to reimplement "setData()". This function takes the updated value from view and puts in model:
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::ItemDataRole::EditRole) override;
+    // Keyword "override" means this function belongs to the parent class and has been overwritten.
+
+    // For read-only views, we don't need to reimplement "flags()". But if we want the model to be editable, we must reimplement this function:
+    // (Based on ref [1] even in read-only models, reimplementation of flags() is a good idea to ensure the view that the items are not editable.
+    // In this case, the flag Qt::ItemIsEditable shouldn't be included between the returned flags)
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     // Keyword "override" means this function belongs to the parent class and has been overwritten.
     // Keyword "const" means the function is not allowed to change the object.
