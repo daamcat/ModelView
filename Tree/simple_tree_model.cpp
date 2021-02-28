@@ -3,6 +3,8 @@
 #include <QTreeView>
 #include <QFile>
 #include <QDir>
+#include <QDebug>
+
 
 /*
 Ref:
@@ -14,7 +16,7 @@ int simple_tree_model(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QString fileName = QString(SOURCE_DIR)+"/testData/TreeSample2.txt";
+    QString fileName = QDir::currentPath() + "/testData/TreeSample2.txt";
     QFile file(fileName);
     file.open(QIODevice::ReadOnly);
     TreeModel model(file.readAll());
