@@ -1,0 +1,6 @@
+# Format: First name; last name; Number; Male?;
+
+FirstName1;LastName1;1;0;
+FirstName2;LastName2;7;1;
+FirstName3;LastName3;8;1;
+FirstName4;LastName4;3;0;

@@ -10,6 +10,7 @@ TEMPLATE = app
 
 # Adds the Tree project path to the header file include lookup path
 INCLUDEPATH += $$PWD/../Tree
+INCLUDEPATH += $$PWD/../Table
 
 SOURCES += main.cpp
 
@@ -18,9 +19,13 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-# Adds the Tree.lib to the linker
+# Adds Tree.lib to the linker
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Tree/release/ -lTree
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Tree/debug/ -lTree
+
+# Adds the Table.lib to the linker
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Table/release/ -lTable
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Table/debug/ -lTable
 
 # Copy a folder to build directory:
 # (ref linux: https://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/)
