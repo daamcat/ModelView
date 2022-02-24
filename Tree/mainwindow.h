@@ -1,19 +1,24 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+// Because we are having multiple files with name MainWindow, one in folder /tree/ and one in /table/,
+// we remove #ifndef MAINWINDOW_H and #define MAINWINDOW_H from these files.
+
+#pragma once
 
 #include <QMainWindow>
 
 #include "myitemmodel.h"
 
+class QModelIndex;
+class QFileSystemModel;
+class QStandardItem;
+
+namespace tree
+{
 
 
 namespace Ui {
 class MainWindow;
 }
 
-class QModelIndex;
-class QFileSystemModel;
-class QStandardItem;
 
 class MainWindow : public QMainWindow
 {
@@ -24,7 +29,7 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    tree::Ui::MainWindow *ui;
 
     QFileSystemModel *m_model;
     MyItemModel *m_itemModel;
@@ -39,4 +44,5 @@ private slots:
     void slotItemChanged(QStandardItem * item);
 };
 
-#endif // MAINWINDOW_H
+} // namespace tree
+

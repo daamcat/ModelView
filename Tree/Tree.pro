@@ -28,24 +28,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    mainwindow.cpp \
     mylabel.cpp \
     myitemmodel.cpp \
     mytreeview.cpp \
     treeitem.cpp \
     treemodel.cpp \
-    simple_tree_model.cpp
+    simple_tree_model.cpp \
+    MainWindow.cpp
 
 HEADERS += \
-    mainwindow.h \
     mylabel.h \
     myitemmodel.h \
     mytreeview.h \
     treeitem.h \
-    treemodel.h
+    treemodel.h \
+    MainWindow.h
 
 FORMS += \
-        mainwindow.ui
+    MainWindow.ui
 
 
 

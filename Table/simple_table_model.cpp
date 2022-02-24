@@ -3,7 +3,9 @@
 #include <QDir>
 #include <QTextStream>
 #include <QStringList>
+#include <QTableView>
 
+#include "TableModel.h"
 #include "MainWindow.h"
 
 
@@ -22,8 +24,15 @@ int simple_table_model(int argc , char* argv[])
   }
   file.close();
 
-  MainWindow win;
+  /*
+  QTableView winn;
+  //TableModelPrimitive model;
+  TableModel2 model;
+  winn.setModel(&model);
+  winn.show();
+  */
+  table::MainWindow win;
   win.show();
 
-  return 0;
+  return a.exec();
 }

@@ -1,10 +1,15 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+// Because we are having multiple files with name MainWindow, one in folder /tree/ and one in /table/,
+// we remove #ifndef MAINWINDOW_H and #define MAINWINDOW_H from these files.
+
+#pragma once
 
 #include <QMainWindow>
 
-namespace Ui {
-class MainWindow;
+namespace table
+{
+namespace Ui
+{
+  class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -16,7 +21,8 @@ public:
   ~MainWindow();
 
 private:
-  Ui::MainWindow *ui;
+  table::Ui::MainWindow *ui;
 };
 
-#endif // MAINWINDOW_H
+} // namespace table
+

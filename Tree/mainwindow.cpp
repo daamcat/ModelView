@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "MainWindow.h"
+#include "ui_MainWindow.h"
 #include "mytreeview.h"
 
 #include <QFileSystemModel>
@@ -8,6 +8,10 @@
 #include <QLineEdit>
 #include <QHeaderView>
 #include <QStandardItem>
+
+namespace tree
+{
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -104,5 +108,7 @@ void MainWindow::slotResizeColumnToContents(const QModelIndex &index)
     int columnNumber = index.column();
     ui->labelDebug->setText(index.data().toString());
     ui->treeView->resizeColumnToContents(columnNumber);
+}
+
 
 }

@@ -27,10 +27,14 @@ CONFIG += c++11
 
 SOURCES += \
         MainWindow.cpp \
-        simple_table_model.cpp
+        simple_table_model.cpp \
+    TableModel.cpp \
+    DataWidgetMapper.cpp
 
 HEADERS += \
-        MainWindow.h
+        MainWindow.h \
+    TableModel.h \
+    DataWidgetMapper.h
 
 FORMS += \
         MainWindow.ui
